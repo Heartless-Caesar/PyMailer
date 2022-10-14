@@ -1,9 +1,10 @@
 from config.configs import cur
 
 def getQuery():
+    resList = []
     try:
         # Busca de dados fazem com que sejam representados como tuplas
-        cur.execute(f"""select DISTINCT s.nr_guia,
+        data = cur.execute(f"""select DISTINCT s.nr_guia,
                         s.cd_solicitacao,
                         DECODE(S.CD_SITUACAO,
                             1, 'NEGADA',
@@ -72,13 +73,19 @@ def getQuery():
         and i.cd_item_servico <> 17801012
         and TO_CHAR(s.dt_solicitacao, 'yyyyMM') = {202101}
         AND ROWNUM <= 2000""")
-
+        
         # Printar todas as linhas obtidas no console 
         while True:   
             row = cur.fetchone()
+        
             if row is None:
                 break
-            print(row)
+            # print(row)
+            print(f"COD_SOLIC - {row[3]}")
+
+        # CODIGOS SOLICITANTES
+        # SELECT DISTINCT NVL(AUTSC2_SOLICITACOES.CD_PREST_PROF_SOLIC, AUTSC2_SOLICITACOES.CD_PREST_SOLIC) COD_SOLIC 
+        #     FROM DATACENTER.AUTSC2_SOLICITACOES
 
     except Exception as err:
         print(err)        
