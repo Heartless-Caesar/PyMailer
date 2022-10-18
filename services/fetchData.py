@@ -72,16 +72,26 @@ def getQuery():
         and op.tp_item <> '2'
         and i.cd_item_servico <> 17801012
         and TO_CHAR(s.dt_solicitacao, 'yyyyMM') = {202101}
-        AND ROWNUM <= 2000""")
+        """)
         
-        # Printar todas as linhas obtidas no console 
+        # AND ROWNUM <= 2000
+
+        # Inserir todas as linhas obtidas em uma lista
+        # table = cur.fetchall()
+        # resList.append(table);
+
+        # Print list
+        # for item in range(len(resList)):
+        #     print(resList[item])
+
+        # Print rows
         while True:   
             row = cur.fetchone()
-        
             if row is None:
                 break
             # print(row)
             print(f"COD_SOLIC - {row[3]}")
+
 
         # CODIGOS SOLICITANTES
         # SELECT DISTINCT NVL(AUTSC2_SOLICITACOES.CD_PREST_PROF_SOLIC, AUTSC2_SOLICITACOES.CD_PREST_SOLIC) COD_SOLIC 
